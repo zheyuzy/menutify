@@ -17,7 +17,7 @@ const spotifyApiRequest = async (url, params, accessToken, refreshToken, setAcce
       if (error.response) {
         if (error.response.status === 401) { // Token expired
           try {
-            const refreshResponse = await axios.get('/refresh_token', { params: { refresh_token: refreshToken } });
+            const refreshResponse = await axios.get('/api/refresh_token', { params: { refresh_token: refreshToken } });
             const newAccessToken = refreshResponse.data.access_token;
             setAccessToken(newAccessToken);
             accessToken = newAccessToken; // Update for the retry
