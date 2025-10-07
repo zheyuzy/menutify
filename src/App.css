@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Roboto+Mono&display=swap');
+
+.App {
+  text-align: center;
+  background-color: #f4f1ea;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.App-header {
+  background-color: #f4f1ea;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 30px;
+  color: #333;
+}
+
+h1 {
+  font-family: 'Special Elite', cursive;
+  font-size: 3rem;
+  color: #222;
+}
+
+.controls {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin: 20px 0;
+}
+
+.control-group {
+  margin: 10px 0;
+}
+
+.control-group label {
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+button {
+  background-color: #e0e0e0;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px;
+  font-family: 'Roboto Mono', monospace;
+}
+
+button.active {
+  background-color: #333;
+  color: white;
+  border-color: #333;
+}
+
+button:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+.menu {
+  background: #fff;
+  border: 1px solid #ccc;
+  width: 350px;
+  padding: 25px;
+  margin: 30px auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  font-family: 'Special Elite', cursive;
+}
+
+.menu h2 {
+  text-align: center;
+  margin: 0 0 10px;
+  font-size: 1.5rem;
+  border-bottom: 2px dashed #ccc;
+  padding-bottom: 10px;
+}
+
+.menu-subtitle {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.menu-items {
+  margin-bottom: 20px;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items to the top */
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+.item-details {
+  text-align: left;
+}
+
+.item-index {
+  margin-right: 10px;
+}
+
+.item-name {
+  display: block; /* Make name and artist stack */
+}
+
+.item-artist {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.menu-footer {
+  text-align: center;
+  font-style: italic;
+  color: #555;
+  margin-top: 20px;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
