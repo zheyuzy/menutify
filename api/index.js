@@ -30,7 +30,7 @@ const stateKey = 'spotify_auth_state';
 app.use(cors())
    .use(cookieParser());
 
-app.get('/api/login', function(req, res) {
+app.get('/login', function(req, res) {
   const state = generateRandomString(16);
   res.cookie(stateKey, state);
 
@@ -46,7 +46,7 @@ app.get('/api/login', function(req, res) {
     }));
 });
 
-app.get('/api/callback', function(req, res) {
+app.get('/callback', function(req, res) {
   // your application requests refresh and access tokens
   // after checking the state parameter
   const code = req.query.code || null;
@@ -105,7 +105,7 @@ app.get('/api/callback', function(req, res) {
   }
 });
 
-app.get('/api/refresh_token', function(req, res) {
+app.get('/refresh_token', function(req, res) {
   // requesting access token from refresh token
   const refresh_token = req.query.refresh_token;
   const authOptions = {
