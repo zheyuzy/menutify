@@ -61,7 +61,7 @@ function App() {
   }, []);
 
   const handleLogin = () => {
-    window.location.href = '/login';
+    window.location.href = '/api/login';
   };
 
   const handleLogout = () => {
