@@ -69,11 +69,7 @@ function App() {
     if (accessToken) {
       handleGenerate();
     }
-  }, [accessToken]);
-
-  useEffect(() => {
-    setTopData(null); // Clear menu when selections change
-  }, [dataType, timeRange]);
+  }, [dataType, timeRange, accessToken]);
 
   const handleLogin = () => {
     const apiBaseUrl = process.env.NODE_ENV === 'production' 
