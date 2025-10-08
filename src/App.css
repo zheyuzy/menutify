@@ -121,6 +121,12 @@ button {
   background-color: #1AA34A; /* Darker green on active */
 }
 
+.dark-mode-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
 /* Dark Mode */
 .dark-mode .App-header {
   background-color: #121212;

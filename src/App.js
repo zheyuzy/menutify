@@ -160,6 +160,9 @@ function App() {
   return (
     <div className={`App ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
       <header className="App-header">
+        <button onClick={() => setIsDarkMode(!isDarkMode)} className="dark-mode-toggle">
+          {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+        </button>
         <h1>Menutify</h1>
 
         {!accessToken ? (
@@ -188,9 +191,7 @@ function App() {
               {loading ? 'Generating...' : 'Generate Menu'}
             </button>
             <button onClick={handleLogout}>Logout</button>
-            <button onClick={() => setIsDarkMode(!isDarkMode)}>
-              {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-            </button>
+
             <p style={{ fontSize: 'small' }}>cooked by <a href="https://github.com/zheyuzy" target="_blank" rel="noopener noreferrer">zheyuzy</a></p>
 
             {error && <p style={{ color: 'red' }}>{error}</p>}
