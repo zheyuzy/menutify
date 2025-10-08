@@ -79,64 +79,28 @@ function App() {
     setError(null);
   };
 
-  const handleGenerate = useCallback(async () => {
+  const handleGenerate = async () => {
     setLoading(true);
     setError(null);
     setTopData(null);
     try {
-      let dataToSet;
-      if (dataType === 'genres') {
-        // Fetch top artists to get genres
-        const artistsResponse = await spotifyApiRequest(
-          `https://api.spotify.com/v1/me/top/artists`,
-          { time_range: timeRange, limit: 50 }, // Fetch more artists to get a better genre sample
-          accessToken,
-          refreshToken,
-          setAccessToken,
-          setError
-        );
-
-        if (!artistsResponse) {
-          throw new Error('Failed to fetch top artists for genre calculation.');
-        }
-
-        const genresMap = {};
-        artistsResponse.data.items.forEach(artist => {
-          artist.genres.forEach(genre => {
-            genresMap[genre] = (genresMap[genre] || 0) + 1;
-          });
-        });
-
-        // Convert map to array and sort by count
-        dataToSet = Object.entries(genresMap)
-          .sort(([, countA], [, countB]) => countB - countA)
-          .slice(0, 10) // Limit to top 10 genres
-          .map(([genre, count]) => ({ id: genre, name: genre, count })); // Format for display
-
-      } else {
-        // Existing logic for tracks and artists
-        const response = await spotifyApiRequest(
-          `https://api.spotify.com/v1/me/top/${dataType}`,
-          { time_range: timeRange, limit: 10 },
-          accessToken,
-          refreshToken,
-          setAccessToken,
-          setError
-        );
-        if (!response) {
-          throw new Error('Failed to fetch top data from Spotify.');
-        }
-        dataToSet = response.data.items;
+      const response = await spotifyApiRequest(
+        `https://api.spotify.com/v1/me/top/${dataType}`,
+        { time_range: timeRange, limit: 10 },
+        accessToken,
+        refreshToken,
+        setAccessToken,
+        setError
+      );
+      if (response) {
+        setTopData(response.data.items);
       }
-
-      setTopData(dataToSet);
-
     } catch (err) {
       setError('Failed to fetch top data from Spotify.');
       console.error(err);
     }
     setLoading(false);
-  }, [dataType, timeRange, accessToken, refreshToken, setAccessToken, setError]);
+  };
 
   const handleDownloadImage = async () => {
     if (!menuRef.current) return;
@@ -160,7 +124,6 @@ function App() {
                 <label>Type:</label>
                 <button className={dataType === 'tracks' ? 'active' : ''} onClick={() => setDataType('tracks')}>Dishes</button>
                 <button className={dataType === 'artists' ? 'active' : ''} onClick={() => setDataType('artists')}>Chefs</button>
-                <button className={dataType === 'genres' ? 'active' : ''} onClick={() => setDataType('genres')}>Cuisines</button>
               </div>
               <div className="control-group">
                 <label>Time Range:</label>
@@ -179,7 +142,7 @@ function App() {
             {topData && (
               <>
                 <div id="menu-container" ref={menuRef} className="menu">
-                  <h2>Your Top {dataType === 'tracks' ? 'Dishes' : dataType === 'artists' ? 'Chefs' : 'Cuisines'}</h2>
+                  <h2>Your Top {dataType === 'tracks' ? 'Dishes' : 'Chefs'}</h2>
                   <p className="menu-subtitle">For the {timeRange.replace('_term','').replace('short', 'last month').replace('medium', 'last 6 months').replace('long', 'all time')}</p>
                   <div className="menu-items">
                     {topData.map((item, index) => (
@@ -188,7 +151,6 @@ function App() {
                           <span className="item-index">{index + 1}.</span>
                           <span className="item-name">{item.name}</span>
                           {dataType === 'tracks' && item.artists && <span className="item-artist">{item.artists.map(a => a.name).join(', ')}</span>}
-                          {dataType === 'genres' && item.count && <span className="item-artist">({item.count} mentions)</span>}
                         </div>
                       </div>
                     ))}
