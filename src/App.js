@@ -116,7 +116,7 @@ function App() {
       <header className="App-header">
         <h1>Menutify</h1>
         {!accessToken ? (
-          <button onClick={handleLogin}>Login with Spotify</button>
+          <button onClick={handleLogin} className="spotify-login-button">Login with Spotify</button>
         ) : (
           <>
             <div className="controls">
