@@ -2,8 +2,8 @@ const axios = require('axios');
 const querystring = require('querystring');
 
 // Use environment variables for security
-const client_id = process.env.SPOTIFY_CLIENT_ID;
-const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
+const client_id = process.env.SPOTIFY_CLIENT_ID?.trim();
+const client_secret = process.env.SPOTIFY_CLIENT_SECRET?.trim();
 
 module.exports = async (req, res) => {
   // Set CORS headers

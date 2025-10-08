@@ -2,10 +2,10 @@ const axios = require('axios');
 const querystring = require('querystring');
 
 // Use environment variables for security
-const client_id = process.env.SPOTIFY_CLIENT_ID;
-const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-const redirect_uri = process.env.REDIRECT_URI || 'https://menutify-seven.vercel.app/api/callback';
-const frontend_url = process.env.FRONTEND_URL || 'https://menutify-seven.vercel.app';
+const client_id = process.env.SPOTIFY_CLIENT_ID?.trim();
+const client_secret = process.env.SPOTIFY_CLIENT_SECRET?.trim();
+const redirect_uri = process.env.REDIRECT_URI?.trim() || 'https://menutify-seven.vercel.app/api/callback';
+const frontend_url = process.env.FRONTEND_URL?.trim() || 'https://menutify-seven.vercel.app';
 
 /**
  * Generates a random string containing numbers and letters
@@ -42,6 +42,8 @@ module.exports = async (req, res) => {
   console.log('Client ID:', client_id ? 'SET' : 'NOT SET');
   console.log('Client Secret:', client_secret ? 'SET' : 'NOT SET');
   console.log('Redirect URI:', redirect_uri);
+  console.log('Client ID length:', client_id?.length);
+  console.log('Client Secret length:', client_secret?.length);
   
   if (!client_id || !client_secret) {
     console.error('Missing Spotify credentials');

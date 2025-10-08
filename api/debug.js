@@ -16,6 +16,10 @@ module.exports = async (req, res) => {
     redirect_uri_set: !!process.env.REDIRECT_URI,
     frontend_url_set: !!process.env.FRONTEND_URL,
     redirect_uri_value: process.env.REDIRECT_URI,
-    frontend_url_value: process.env.FRONTEND_URL
+    frontend_url_value: process.env.FRONTEND_URL,
+    client_id_length: process.env.SPOTIFY_CLIENT_ID?.length,
+    client_secret_length: process.env.SPOTIFY_CLIENT_SECRET?.length,
+    client_id_first_chars: process.env.SPOTIFY_CLIENT_ID?.substring(0, 8),
+    client_secret_first_chars: process.env.SPOTIFY_CLIENT_SECRET?.substring(0, 8)
   });
 };
