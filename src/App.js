@@ -163,9 +163,9 @@ function App() {
 
         {!accessToken ? (
           <>
-            <h2>See who’s cooking ur Spotify</h2>
+            <h2>👨‍🍳 See who’s cooking ur Spotify 🍳</h2>
             <button onClick={handleLogin} className="spotify-login-button">Login with Spotify</button>
-            <p style={{ fontSize: 'small' }}>cooked by <a href="https://github.com/zheyuzy" target="_blank" rel="noopener noreferrer">zheyuzy</a></p>
+            <p style={{ fontSize: 'small' }}>cooked by <a href="https://github.com/zheyuzy" target="_blank" rel="noopener noreferrer">zheyuzy👨‍🍳</a></p>
           </>
         ) : (
           <>
