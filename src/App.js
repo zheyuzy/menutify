@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import html2canvas from 'html2canvas';
 import './App.css';
@@ -69,7 +69,7 @@ function App() {
     if (accessToken) {
       handleGenerate();
     }
-  }, [accessToken]);
+  }, [accessToken, handleGenerate]);
 
   useEffect(() => {
     setTopData(null); // Clear menu when selections change
@@ -89,7 +89,7 @@ function App() {
     setError(null);
   };
 
-  const handleGenerate = async () => {
+  const handleGenerate = useCallback(async () => {
     setLoading(true);
     setError(null);
     setTopData(null);
@@ -110,7 +110,7 @@ function App() {
       console.error(err);
     }
     setLoading(false);
-  };
+  }, [dataType, timeRange, accessToken, refreshToken]);
 
   const handleDownloadImage = async () => {
     if (!menuRef.current) return;
