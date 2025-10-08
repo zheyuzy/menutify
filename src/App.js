@@ -54,6 +54,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const menuRef = useRef(null);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.hash.substring(1));
@@ -157,7 +158,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className={`App ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
       <header className="App-header">
         <h1>Menutify</h1>
 
@@ -187,6 +188,9 @@ function App() {
               {loading ? 'Generating...' : 'Generate Menu'}
             </button>
             <button onClick={handleLogout}>Logout</button>
+            <button onClick={() => setIsDarkMode(!isDarkMode)}>
+              {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+            </button>
             <p style={{ fontSize: 'small' }}>cooked by <a href="https://github.com/zheyuzy" target="_blank" rel="noopener noreferrer">zheyuzy</a></p>
 
             {error && <p style={{ color: 'red' }}>{error}</p>}
