@@ -155,13 +155,41 @@ function App() {
     setLoading(false);
   }, [dataType, timeRange, accessToken, refreshToken, setAccessToken, setError]);
 
-  const handleDownloadImage = async () => {
+  const handleDownloadImage = async (share = false) => {
     if (!menuRef.current) return;
     const canvas = await html2canvas(menuRef.current);
-    const link = document.createElement('a');
-    link.download = 'menutify.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
+    if (share) {
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+      const file = new File([blob], 'menutify.png', { type: 'image/png' });
+      return file;
+    } else {
+      const link = document.createElement('a');
+      link.download = 'menutify.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+  };
+
+  const handleShare = async () => {
+    const file = await handleDownloadImage(true);
+    if (navigator.share && file) {
+      try {
+        await navigator.share({
+          files: [file],
+          title: 'My Menutify Menu',
+          text: 'Check out my Spotify menu!',
+        });
+      } catch (error) {
+        console.error('Error sharing:', error);
+        // Fallback to download if sharing fails
+        handleDownloadImage();
+        alert('Sharing failed. The image has been downloaded instead. You can share it manually.');
+      }
+    } else {
+      // Fallback for browsers that don't support Web Share API
+      handleDownloadImage();
+      alert('To share to your Instagram story, open Instagram, create a new story, and select the downloaded image from your gallery.');
+    }
   };
 
   return (
@@ -252,7 +280,8 @@ function App() {
                   </div>
                   <p className="menu-footer">Thank you for dining with Menutify!</p>
                 </div>
-                <button onClick={handleDownloadImage}>Download Menu</button>
+                <button onClick={() => handleDownloadImage()}>Download Menu</button>
+                <button onClick={handleShare}>Share to IG Story</button>
               </>
             )}
           </>
