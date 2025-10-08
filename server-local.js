@@ -11,7 +11,7 @@ const app = express();
 const client_id = process.env.SPOTIFY_CLIENT_ID?.trim();
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET?.trim();
 const redirect_uri = process.env.REDIRECT_URI?.trim() || 'http://127.0.0.1:3000/callback';
-const frontend_url = process.env.FRONTEND_URL?.trim() || 'http://localhost:3000';
+const frontend_url = process.env.FRONTEND_URL?.trim() || 'http://localhost:3001';
 
 /**
  * Generates a random string containing numbers and letters
