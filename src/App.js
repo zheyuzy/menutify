@@ -160,7 +160,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Menutify</h1>
-        <p style={{ fontSize: 'small' }}>made by <a href="https://github.com/zheyuzy" target="_blank" rel="noopener noreferrer">zheyuzy</a></p>
+        <p style={{ fontSize: 'small' }}>cooked by <a href="https://github.com/zheyuzy" target="_blank" rel="noopener noreferrer">zheyuzy</a></p>
         {!accessToken ? (
           <button onClick={handleLogin} className="spotify-login-button">Login with Spotify</button>
         ) : (
