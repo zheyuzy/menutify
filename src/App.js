@@ -193,7 +193,25 @@ function App() {
             {menuGenerated && ( // Changed from topData &&
               <>
                 <div id="menu-container" ref={menuRef} className="menu">
-                  <h2>Your Top {dataType === 'tracks' ? 'Dishes' : dataType === 'artists' ? 'Chefs' : 'Cuisines'}</h2>
+                  <h2>{
+                    ((dataType, timeRange) => {
+                      const typeName = {
+                        tracks: 'Dishes',
+                        artists: 'Chefs',
+                        genres: 'Cuisines',
+                      }[dataType];
+
+                      if (timeRange === 'short_term') {
+                        if (dataType === 'artists') {
+                          return 'Chefs of the Month';
+                        }
+                        if (dataType === 'genres') {
+                          return 'Cuisines of the Month';
+                        }
+                      }
+                      return `Your Top ${typeName}`;
+                    })(dataType, timeRange)
+                  }</h2>
                   <p className="menu-subtitle">{{
                     'short_term': 'Taste of the Month',
                     'medium_term': 'Taste of the Season',
