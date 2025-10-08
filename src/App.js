@@ -19,7 +19,7 @@ const spotifyApiRequest = async (url, params, accessToken, refreshToken, setAcce
           try {
             const apiBaseUrl = process.env.NODE_ENV === 'production' 
               ? 'https://menutify-seven.vercel.app/api' 
-              : 'http://127.0.0.1:8888';
+              : 'http://127.0.0.1:3000';
             const refreshResponse = await axios.get(`${apiBaseUrl}/refresh_token`, { 
               params: { refresh_token: refreshToken } 
             });
@@ -68,7 +68,7 @@ function App() {
   const handleLogin = () => {
     const apiBaseUrl = process.env.NODE_ENV === 'production' 
       ? 'https://menutify-seven.vercel.app/api' 
-      : 'http://127.0.0.1:8888';
+      : 'http://127.0.0.1:3000';
     window.location.href = `${apiBaseUrl}/login`;
   };
 
