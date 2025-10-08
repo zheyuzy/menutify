@@ -7,21 +7,6 @@ const client_secret = process.env.SPOTIFY_CLIENT_SECRET?.trim();
 const redirect_uri = process.env.REDIRECT_URI?.trim() || 'https://menutify-seven.vercel.app/api/callback';
 const frontend_url = process.env.FRONTEND_URL?.trim() || 'https://menutify-seven.vercel.app';
 
-/**
- * Generates a random string containing numbers and letters
- * @param  {number} length The length of the string
- * @return {string} The generated string
- */
-const generateRandomString = function(length) {
-  let text = '';
-  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234987654321';
-
-  for (let i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return text;
-};
-
 module.exports = async (req, res) => {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -38,12 +23,14 @@ module.exports = async (req, res) => {
     return;
   }
 
-  // Debug: Check if environment variables are loaded
-  console.log('Client ID:', client_id ? 'SET' : 'NOT SET');
-  console.log('Client Secret:', client_secret ? 'SET' : 'NOT SET');
+  // Debug: Show exact values being used
+  console.log('=== LOGIN DEBUG ===');
+  console.log('Client ID:', client_id);
+  console.log('Client Secret:', client_secret);
   console.log('Redirect URI:', redirect_uri);
-  console.log('Client ID length:', client_id?.length);
-  console.log('Client Secret length:', client_secret?.length);
+  console.log('Frontend URL:', frontend_url);
+  console.log('Redirect URI length:', redirect_uri.length);
+  console.log('Redirect URI bytes:', Buffer.from(redirect_uri).toString('hex'));
   
   if (!client_id || !client_secret) {
     console.error('Missing Spotify credentials');
@@ -55,16 +42,34 @@ module.exports = async (req, res) => {
   // Set cookie
   res.setHeader('Set-Cookie', `spotify_auth_state=${state}; Path=/; HttpOnly; SameSite=Lax`);
 
-  // your application requests authorization
-  const scope = 'user-read-private user-read-email user-library-read playlist-modify-public playlist-modify-private user-top-read';
-  const authUrl = 'https://accounts.spotify.com/authorize?' +
-    querystring.stringify({
-      response_type: 'code',
-      client_id: client_id,
-      scope: scope,
-      redirect_uri: redirect_uri,
-      state: state
-    });
+  // Build the authorization URL
+  const authParams = {
+    response_type: 'code',
+    client_id: client_id,
+    scope: 'user-read-private user-read-email user-library-read playlist-modify-public playlist-modify-private user-top-read',
+    redirect_uri: redirect_uri,
+    state: state
+  };
+
+  const authUrl = 'https://accounts.spotify.com/authorize?' + querystring.stringify(authParams);
+  
+  console.log('Auth URL:', authUrl);
+  console.log('==================');
 
   res.redirect(authUrl);
+};
+
+/**
+ * Generates a random string containing numbers and letters
+ * @param  {number} length The length of the string
+ * @return {string} The generated string
+ */
+const generateRandomString = function(length) {
+  let text = '';
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234987654321';
+
+  for (let i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
 };
