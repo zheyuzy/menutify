@@ -187,6 +187,7 @@ function App() {
               {loading ? 'Generating...' : 'Generate Menu'}
             </button>
             <button onClick={handleLogout}>Logout</button>
+            <p style={{ fontSize: 'small' }}>cooked by <a href="https://github.com/zheyuzy" target="_blank" rel="noopener noreferrer">zheyuzy</a></p>
 
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
@@ -207,6 +208,14 @@ function App() {
                         }
                         if (dataType === 'genres') {
                           return 'Cuisines of the Month';
+                        }
+                      }
+                      if (timeRange === 'medium_term') {
+                        if (dataType === 'artists') {
+                          return 'Chefs of the Season';
+                        }
+                        if (dataType === 'genres') {
+                          return 'Cuisines of the Season';
                         }
                       }
                       return `Your Top ${typeName}`;
