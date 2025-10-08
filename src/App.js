@@ -54,7 +54,10 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const menuRef = useRef(null);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedMode = localStorage.getItem('isDarkMode');
+    return savedMode ? JSON.parse(savedMode) : true;
+  });
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.hash.substring(1));
@@ -71,6 +74,10 @@ function App() {
     setTopData(null); // Clear menu when selections change
     setMenuGenerated(false); // Also clear menuGenerated state
   }, [dataType, timeRange]);
+
+  useEffect(() => {
+    localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
+  }, [isDarkMode]);
 
   const handleLogin = () => {
     const apiBaseUrl = process.env.NODE_ENV === 'production' 
