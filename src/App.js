@@ -176,6 +176,8 @@ function App() {
 
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
+            <p>topData: {JSON.stringify(topData)}</p>
+
             {topData && (
               <>
                 <div id="menu-container" ref={menuRef} className="menu">
