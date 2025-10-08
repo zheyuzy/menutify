@@ -4,7 +4,7 @@ const querystring = require('querystring');
 // Use environment variables for security
 const client_id = process.env.SPOTIFY_CLIENT_ID?.trim();
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET?.trim();
-const redirect_uri = process.env.REDIRECT_URI?.trim() || 'https://menutify-seven.vercel.app/callback';
+const redirect_uri = process.env.REDIRECT_URI?.trim() || 'https://menutify-seven.vercel.app/api/callback';
 const frontend_url = process.env.FRONTEND_URL?.trim() || 'https://menutify-seven.vercel.app';
 
 module.exports = async (req, res) => {

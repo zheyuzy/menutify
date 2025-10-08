@@ -65,6 +65,12 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    if (accessToken) {
+      handleGenerate();
+    }
+  }, [dataType, timeRange, accessToken]);
+
   const handleLogin = () => {
     const apiBaseUrl = process.env.NODE_ENV === 'production' 
       ? 'https://menutify-seven.vercel.app/api' 
