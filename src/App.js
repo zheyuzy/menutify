@@ -197,7 +197,7 @@ function App() {
                           <span className="item-index">{index + 1}.</span>
                           <span className="item-name">{item.name}</span>
                           {dataType === 'tracks' && item.artists && <span className="item-artist">{item.artists.map(a => a.name).join(', ')}</span>}
-                          {dataType === 'genres' && item.count && <span className="item-artist">({item.count})</span>}
+                          {dataType === 'genres' && item.count && <span className="item-artist">({item.count} {item.count === 1 ? 'chef' : 'chefs'})</span>}
                         </div>
                       </div>
                     ))}
