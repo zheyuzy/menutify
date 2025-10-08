@@ -7,18 +7,46 @@
       "config": { "distDir": "build" }
     },
     {
-      "src": "api/index.js",
+      "src": "api/login.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/callback.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/refresh_token.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/debug.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "api/index.js"
+      "src": "/api/login",
+      "dest": "api/login.js"
+    },
+    {
+      "src": "/api/callback",
+      "dest": "api/callback.js"
+    },
+    {
+      "src": "/api/refresh_token",
+      "dest": "api/refresh_token.js"
+    },
+    {
+      "src": "/api/debug",
+      "dest": "api/debug.js"
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/"
+      "dest": "/index.html"
     }
   ]
 }

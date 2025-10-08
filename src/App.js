@@ -17,7 +17,12 @@ const spotifyApiRequest = async (url, params, accessToken, refreshToken, setAcce
       if (error.response) {
         if (error.response.status === 401) { // Token expired
           try {
-            const refreshResponse = await axios.get('/api/refresh_token', { params: { refresh_token: refreshToken } });
+            const apiBaseUrl = process.env.NODE_ENV === 'production' 
+              ? 'https://menutify-seven.vercel.app/api' 
+              : 'http://127.0.0.1:8888';
+            const refreshResponse = await axios.get(`${apiBaseUrl}/refresh_token`, { 
+              params: { refresh_token: refreshToken } 
+            });
             const newAccessToken = refreshResponse.data.access_token;
             setAccessToken(newAccessToken);
             accessToken = newAccessToken; // Update for the retry
@@ -61,7 +66,10 @@ function App() {
   }, []);
 
   const handleLogin = () => {
-    window.location.href = '/api/login';
+    const apiBaseUrl = process.env.NODE_ENV === 'production' 
+      ? 'https://menutify-seven.vercel.app/api' 
+      : 'http://127.0.0.1:8888';
+    window.location.href = `${apiBaseUrl}/login`;
   };
 
   const handleLogout = () => {
