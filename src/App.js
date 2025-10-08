@@ -50,6 +50,7 @@ function App() {
   const [dataType, setDataType] = useState('tracks');
   const [timeRange, setTimeRange] = useState('medium_term');
   const [topData, setTopData] = useState(null);
+  const [menuGenerated, setMenuGenerated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const menuRef = useRef(null);
@@ -65,6 +66,11 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    setTopData(null); // Clear menu when selections change
+    setMenuGenerated(false); // Also clear menuGenerated state
+  }, [dataType, timeRange]);
+
   const handleLogin = () => {
     const apiBaseUrl = process.env.NODE_ENV === 'production' 
       ? 'https://menutify-seven.vercel.app/api' 
@@ -76,6 +82,7 @@ function App() {
     setAccessToken('');
     setRefreshToken('');
     setTopData(null);
+    setMenuGenerated(false); // Also clear menuGenerated state on logout
     setError(null);
   };
 
@@ -83,6 +90,7 @@ function App() {
     setLoading(true);
     setError(null);
     setTopData(null);
+    setMenuGenerated(false); // Reset menuGenerated at the start of generation
     try {
       let dataToSet;
       if (dataType === 'genres') {
@@ -130,6 +138,7 @@ function App() {
       }
 
       setTopData(dataToSet);
+      setMenuGenerated(true); // Set to true after successful data fetch
 
     } catch (err) {
       setError('Failed to fetch top data from Spotify.');
@@ -176,7 +185,7 @@ function App() {
 
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
-            {topData && (
+            {menuGenerated && ( // Changed from topData &&
               <>
                 <div id="menu-container" ref={menuRef} className="menu">
                   <h2>Your Top {dataType === 'tracks' ? 'Dishes' : dataType === 'artists' ? 'Chefs' : 'Cuisines'}</h2>
