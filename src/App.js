@@ -160,10 +160,13 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Menutify</h1>
-        <h2>See who’s cooking ur Spotify</h2>
-        <p style={{ fontSize: 'small' }}>cooked by <a href="https://github.com/zheyuzy" target="_blank" rel="noopener noreferrer">zheyuzy</a></p>
+
         {!accessToken ? (
-          <button onClick={handleLogin} className="spotify-login-button">Login with Spotify</button>
+          <>
+            <h2>See who’s cooking ur Spotify</h2>
+            <button onClick={handleLogin} className="spotify-login-button">Login with Spotify</button>
+            <p style={{ fontSize: 'small' }}>cooked by <a href="https://github.com/zheyuzy" target="_blank" rel="noopener noreferrer">zheyuzy</a></p>
+          </>
         ) : (
           <>
             <div className="controls">
