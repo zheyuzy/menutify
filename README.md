@@ -2,7 +2,7 @@
 
 **[Live Demo](https://menutify-seven.vercel.app/)**
 
-A React application that generates a "menu" of your top Spotify tracks and artists.
+A React website that generates a "menu" of your top Spotify tracks and artists.
 
 ## Features
 
