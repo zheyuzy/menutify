@@ -179,7 +179,7 @@ function App() {
               <div className="control-group">
                 <label>Time Range:</label>
                 <button className={timeRange === 'short_term' ? 'active' : ''} onClick={() => setTimeRange('short_term')}>1 Month</button>
-                <button className={timeRange === 'medium_term' ? 'active' : ''} onClick={() => setTimeRange('medium_term')}>6 Months</button>
+                <button className={timeRange === 'medium_term' ? 'active' : ''} onClick={() => setTimeRange('medium_term')}>3 Months</button>
                 <button className={timeRange === 'long_term' ? 'active' : ''} onClick={() => setTimeRange('long_term')}>All Time</button>
               </div>
             </div>
@@ -194,7 +194,11 @@ function App() {
               <>
                 <div id="menu-container" ref={menuRef} className="menu">
                   <h2>Your Top {dataType === 'tracks' ? 'Dishes' : dataType === 'artists' ? 'Chefs' : 'Cuisines'}</h2>
-                  <p className="menu-subtitle">For the {timeRange.replace('_term','').replace('short', 'last month').replace('medium', 'last 6 months').replace('long', 'all time')}</p>
+                  <p className="menu-subtitle">{{
+                    'short_term': 'Taste of the Month',
+                    'medium_term': 'Taste of the Season',
+                    'long_term': 'All Time Favourite'
+                  }[timeRange]}</p>
                   <div className="menu-items">
                     {topData.map((item, index) => (
                       <div className="menu-item" key={item.id}>
